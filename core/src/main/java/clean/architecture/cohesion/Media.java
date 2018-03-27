@@ -15,6 +15,8 @@ public class Media {
     private String episodeCode;
     private String channel;
 
+    private String metadata;
+
     private String content;
     private List<String> imageContent;
     private List<String> audioContent;
@@ -33,6 +35,7 @@ public class Media {
             result.content = readFile(fileName)
          */
 
+        result.metadata = processNovelMetadata(result);
         return result;
     }
 
@@ -49,6 +52,7 @@ public class Media {
             result.imageFiles = readImageFiles(fileName)
          */
 
+        result.metadata = processMagazineMetadata(result);
         return result;
     }
 
@@ -66,7 +70,7 @@ public class Media {
         Podcast podcast = new Podcast(result.audioContent);
         result.content = podcast.transcribeSubtitles();
 
-
+        result.metadata = processPodcastMetadata(result);
         return result;
     }
 
@@ -82,6 +86,7 @@ public class Media {
             result.movieFiles = readMovieFiles(fileName)
          */
 
+        result.metadata = processTelevisionMetadata(result);
         return result;
     }
 
@@ -123,6 +128,26 @@ public class Media {
         DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.connectToDatabase("user", "pass", "hostnameAndPort");
         databaseConnection.saveContent(televisionEpisode.content, null, null, televisionEpisode.movieContent);
+    }
+
+    private String processNovelMetadata(Media media) {
+        //do some processing on the novel media here
+        return "";
+    }
+
+    private String processMagazineMetadata(Media media) {
+        //do some processing on the magazine here
+        return "";
+    }
+
+    private String processPodcastMetadata(Media media) {
+        //do some processing on the podcast data here
+        return "";
+    }
+
+    private String processTelevisionMetadata(Media media) {
+        //do some processing on television here
+        return "";
     }
 
 }
